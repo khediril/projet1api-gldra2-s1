@@ -1,6 +1,7 @@
 # Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
 fos_rest: 
 #    param_fetcher_listener:  true
+    param_fetcher_listener:  force
 #    allowed_methods_listener:  true
 #    routing_loader: true
     view:
@@ -11,10 +12,16 @@ fos_rest:
 #            App\Exception\MyException: 403
 #        messages:
 #            App\Exception\MyException: Forbidden area.
+    exception:
+        enabled: true
+        codes:
+            App\Exception\ResourceValidationException: 400
     format_listener:
         rules:
             - { path: ^/, fallback_format: json, priorities: [ json, xml, html ] }
     body_converter:
         enabled: true
+        validate: true
+        validation_errors_argument: violations
     serializer:
         serialize_null: true

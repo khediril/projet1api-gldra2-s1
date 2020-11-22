@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AuthorRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AuthorRepository;
+use JMS\Serializer\Annotation\Expose;
+use Doctrine\Common\Collections\Collection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorRepository::class)
+ * 
  */
 class Author
 {
@@ -16,18 +19,20 @@ class Author
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $fullname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $bigraphy;
+    private $biography;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author", cascade={"persist"})
@@ -56,14 +61,14 @@ class Author
         return $this;
     }
 
-    public function getBigraphy(): ?string
+    public function getBiography(): ?string
     {
-        return $this->bigraphy;
+        return $this->biography;
     }
 
-    public function setBigraphy(string $bigraphy): self
+    public function setBiography(string $biography): self
     {
-        $this->bigraphy = $bigraphy;
+        $this->biography = $biography;
 
         return $this;
     }

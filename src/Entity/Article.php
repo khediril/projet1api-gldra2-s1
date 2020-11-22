@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -14,21 +18,26 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="articles",cascade={"persist"})
+     * 
      */
     private $author;
 
